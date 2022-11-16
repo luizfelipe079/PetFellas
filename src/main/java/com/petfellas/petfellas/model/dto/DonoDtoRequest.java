@@ -1,4 +1,4 @@
-package com.petfellas.petfellas.dto;
+package com.petfellas.petfellas.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
