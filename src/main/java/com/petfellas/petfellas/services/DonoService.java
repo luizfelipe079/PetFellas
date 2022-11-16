@@ -1,10 +1,12 @@
 package com.petfellas.petfellas.services;
 
-import com.petfellas.petfellas.dto.DonoDtoRequest;
-import com.petfellas.petfellas.dto.DonoDtoResponse;
+import com.petfellas.petfellas.exceptions.ResourceNotFoundException;
+import com.petfellas.petfellas.model.dto.DonoDtoRequest;
+import com.petfellas.petfellas.model.dto.DonoDtoResponse;
 import com.petfellas.petfellas.model.Dono;
 import com.petfellas.petfellas.repositories.DonoRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,14 +43,14 @@ public class DonoService {
 
     public DonoDtoResponse buscarDonoPorId(String id) {
 
-        Dono dono = donoRepository.findById(Long.valueOf(id)).orElseThrow(() -> new RuntimeException("Dono não encontrado"));
+        Dono dono = donoRepository.findById(Long.valueOf(id)).orElseThrow(() -> new ResourceNotFoundException("Dono não encontrado"));
 
         return new DonoDtoResponse(dono.getId(), dono.getNome(), dono.getEmail(), dono.getTelefone());
     }
 
     public DonoDtoResponse alterarDono(String id, DonoDtoRequest donoDtoRequest) {
 
-        Dono dono = donoRepository.findById(Long.valueOf(id)).orElseThrow(() -> new RuntimeException("Dono não encontrado"));
+        Dono dono = donoRepository.findById(Long.valueOf(id)).orElseThrow(() -> new ResourceNotFoundException("Dono não encontrado"));
 
         Dono donoAtualizado = this.atualizarParamatrosDono(dono, donoDtoRequest);
 

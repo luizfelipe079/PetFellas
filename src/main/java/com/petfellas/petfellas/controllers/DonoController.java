@@ -1,7 +1,7 @@
 package com.petfellas.petfellas.controllers;
 
-import com.petfellas.petfellas.dto.DonoDtoRequest;
-import com.petfellas.petfellas.dto.DonoDtoResponse;
+import com.petfellas.petfellas.model.dto.DonoDtoRequest;
+import com.petfellas.petfellas.model.dto.DonoDtoResponse;
 import com.petfellas.petfellas.services.DonoService;
 import org.springframework.web.bind.annotation.*;
 
