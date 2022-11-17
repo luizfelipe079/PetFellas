@@ -13,4 +13,5 @@ public class PetDtoRequest {
     private String nome;
     private String tipoAnimal;
     private String porte;
+    private String idDono;
 }

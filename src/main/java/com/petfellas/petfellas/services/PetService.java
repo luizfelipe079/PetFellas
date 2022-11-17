@@ -6,6 +6,7 @@ package com.petfellas.petfellas.services;
 
 
 import com.petfellas.petfellas.exceptions.ResourceNotFoundException;
+import com.petfellas.petfellas.model.Dono;
 import com.petfellas.petfellas.model.Pet;
 import com.petfellas.petfellas.model.dto.PetDtoRequest;
 import com.petfellas.petfellas.model.dto.PetDtoResponse;
@@ -27,11 +28,14 @@ public class PetService {
 
     public PetDtoResponse salvarPet(PetDtoRequest petDtoRequest){
 
-        Pet pet = new Pet(null, petDtoRequest.getNome(), petDtoRequest.getTipoAnimal(), petDtoRequest.getPorte());
+        Dono dono = new Dono();
+        dono.setId(Long.valueOf(petDtoRequest.getIdDono()));
+
+        Pet pet = new Pet(null, petDtoRequest.getNome(), petDtoRequest.getTipoAnimal(), petDtoRequest.getPorte(), dono);
 
         Pet novoPet = petRepository.save(pet);
 
-        return new PetDtoResponse(novoPet.getId(), novoPet.getNome(), novoPet.getTipoAnimal(), novoPet.getPorte());
+        return new PetDtoResponse(novoPet.getId(), novoPet.getNome(), novoPet.getTipoAnimal(), novoPet.getPorte(), novoPet.getDono().getNome());
 
 
     }
@@ -43,7 +47,7 @@ public class PetService {
         List<PetDtoResponse> petResponse = new ArrayList<>();
 
         for (Pet pet : pets) {
-            petResponse.add(new PetDtoResponse(pet.getId(), pet.getNome(), pet.getTipoAnimal(), pet.getPorte()));
+            petResponse.add(new PetDtoResponse(pet.getId(), pet.getNome(), pet.getTipoAnimal(), pet.getPorte(), pet.getDono().getNome()));
         }
 
         return petResponse;
@@ -53,7 +57,7 @@ public class PetService {
 
         Pet pet = petRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found " +id));
 
-        return new PetDtoResponse(pet.getId(), pet.getNome(), pet.getTipoAnimal(), pet.getPorte());
+        return new PetDtoResponse(pet.getId(), pet.getNome(), pet.getTipoAnimal(), pet.getPorte(), pet.getDono().getNome());
 
     }
 
@@ -65,7 +69,7 @@ public class PetService {
 
         Pet petSalvo = petRepository.save(petAtualizado);
 
-        return new PetDtoResponse(petSalvo.getId(), petSalvo.getNome(), petSalvo.getTipoAnimal(), petSalvo.getPorte());
+        return new PetDtoResponse(petSalvo.getId(), petSalvo.getNome(), petSalvo.getTipoAnimal(), petSalvo.getPorte(), petSalvo.getDono().getNome());
 
     }
 

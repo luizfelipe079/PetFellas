@@ -25,7 +25,7 @@ public class DonoService {
 
         Dono novoDono = donoRepository.save(dono);
 
-        return new DonoDtoResponse(novoDono.getId(), novoDono.getNome(), novoDono.getEmail(), novoDono.getTelefone());
+        return new DonoDtoResponse(novoDono.getId(), novoDono.getNome(), novoDono.getEmail(), novoDono.getTelefone(), novoDono.getPets());
     }
 
     public List<DonoDtoResponse> buscarDonos() {
@@ -35,7 +35,7 @@ public class DonoService {
         List<DonoDtoResponse> donosResponse = new ArrayList<>();
 
         for (Dono dono : donos) {
-            donosResponse.add(new DonoDtoResponse(dono.getId(), dono.getNome(), dono.getEmail(), dono.getTelefone()));
+            donosResponse.add(new DonoDtoResponse(dono.getId(), dono.getNome(), dono.getEmail(), dono.getTelefone(), dono.getPets()));
         }
 
         return donosResponse;
@@ -45,7 +45,7 @@ public class DonoService {
 
         Dono dono = donoRepository.findById(Long.valueOf(id)).orElseThrow(() -> new ResourceNotFoundException("Dono não encontrado"));
 
-        return new DonoDtoResponse(dono.getId(), dono.getNome(), dono.getEmail(), dono.getTelefone());
+        return new DonoDtoResponse(dono.getId(), dono.getNome(), dono.getEmail(), dono.getTelefone(), dono.getPets());
     }
 
     public DonoDtoResponse alterarDono(String id, DonoDtoRequest donoDtoRequest) {
@@ -56,7 +56,7 @@ public class DonoService {
 
         Dono donoSave = donoRepository.save(donoAtualizado);
 
-        return new DonoDtoResponse(donoSave.getId(), donoSave.getNome(), donoSave.getEmail(), donoSave.getTelefone());
+        return new DonoDtoResponse(donoSave.getId(), donoSave.getNome(), donoSave.getEmail(), donoSave.getTelefone(), donoSave.getPets());
     }
 
     public void deletarDono(String id) {
@@ -81,6 +81,10 @@ public class DonoService {
         if (donoDtoRequest.getSenha() != null) {
             dono.setSenha(donoDtoRequest.getSenha());
         }
+//
+//        if(!donoDtoRequest.getIdPets().isEmpty()){
+//
+//        }
 
         return dono;
     }

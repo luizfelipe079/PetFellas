@@ -20,7 +20,8 @@ public class Dono {
     private String email;
     private String telefone;
     private String senha;
-    @OneToMany(mappedBy = "dono")
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "dono")
     private List<Pet> pets;
 
 }
