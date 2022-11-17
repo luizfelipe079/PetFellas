@@ -20,8 +20,8 @@ public class Dono {
     private String email;
     private String telefone;
     private String senha;
-
-    //FIXME: Relacionar pet com dono
+    @OneToMany(mappedBy = "dono")
+    private List<Pet> pets;
 
 }
 
