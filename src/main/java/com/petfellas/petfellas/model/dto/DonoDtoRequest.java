@@ -1,5 +1,6 @@
 package com.petfellas.petfellas.model.dto;
 
+import com.petfellas.petfellas.model.Pet;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,5 @@ public class DonoDtoRequest {
     private String email;
     private String telefone;
     private String senha;
-//    private List<Long> idPets;
+    private List<Pet> pets;
 }

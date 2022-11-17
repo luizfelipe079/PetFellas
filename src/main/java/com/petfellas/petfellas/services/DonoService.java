@@ -1,6 +1,7 @@
 package com.petfellas.petfellas.services;
 
 import com.petfellas.petfellas.exceptions.ResourceNotFoundException;
+import com.petfellas.petfellas.model.Pet;
 import com.petfellas.petfellas.model.dto.DonoDtoRequest;
 import com.petfellas.petfellas.model.dto.DonoDtoResponse;
 import com.petfellas.petfellas.model.Dono;
@@ -51,6 +52,9 @@ public class DonoService {
     public DonoDtoResponse alterarDono(String id, DonoDtoRequest donoDtoRequest) {
 
         Dono dono = donoRepository.findById(Long.valueOf(id)).orElseThrow(() -> new ResourceNotFoundException("Dono não encontrado"));
+        for(Pet pet : donoDtoRequest.getPets()){
+            pet.setDono(dono);
+        }
 
         Dono donoAtualizado = this.atualizarParamatrosDono(dono, donoDtoRequest);
 
@@ -81,10 +85,16 @@ public class DonoService {
         if (donoDtoRequest.getSenha() != null) {
             dono.setSenha(donoDtoRequest.getSenha());
         }
-//
-//        if(!donoDtoRequest.getIdPets().isEmpty()){
-//
-//        }
+
+        if(!donoDtoRequest.getPets().isEmpty()){
+            for(Pet petDto : donoDtoRequest.getPets()){
+                for (Pet pet : dono.getPets()){
+                    if(!petDto.getNome().equals(pet.getNome())){
+                        dono.getPets().add(petDto);
+                    }
+                }
+            }
+        }
 
         return dono;
     }
