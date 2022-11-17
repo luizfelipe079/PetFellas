@@ -21,7 +21,7 @@ public class DonoService {
     }
 
     public DonoDtoResponse salvarDono(DonoDtoRequest donoDtoRequest) {
-        Dono dono = new Dono(null, donoDtoRequest.getNome(), donoDtoRequest.getEmail(), donoDtoRequest.getTelefone(), donoDtoRequest.getSenha());
+        Dono dono = new Dono(null, donoDtoRequest.getNome(), donoDtoRequest.getEmail(), donoDtoRequest.getTelefone(), donoDtoRequest.getSenha(), null);
 
         Dono novoDono = donoRepository.save(dono);
 
